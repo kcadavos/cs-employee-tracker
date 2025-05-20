@@ -25,6 +25,12 @@ const EmployeeTable = () => {
     const [sortBy, setSortBy] = useState("");
     const [sortByJob, setSortByJob] = useState("");
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5; 
+
+    const indexOfLastEmployee = currentPage * itemsPerPage;
+    const indexOfFirstEmployee = indexOfLastEmployee - itemsPerPage;
+    const currentEmployees = sortedEmployees.slice(indexOfFirstEmployee, indexOfLastEmployee);
     // Function to get employees
     const handleGetEmployees = async () => {
         try {
@@ -212,7 +218,7 @@ const EmployeeTable = () => {
                             <TableCell></TableCell>
                         </TableRow>
                     ) : (
-                        sortedEmployees.map((employee, idx) => (
+                        currentEmployees.map((employee, idx)=> (
                             <TableRow key={idx}>
                                 <TableCell className="font-medium">{employee.name}</TableCell>
                                 <TableCell>{employee.jobTitle}</TableCell>
@@ -232,6 +238,25 @@ const EmployeeTable = () => {
                 </TableBody>
             </Table>
             {/* Display table - End */}
+
+            {/*pagination start*/}
+            <div className="flex justify-center mt-4 space-x-2">
+            <Button
+                variant="outline"
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+            >
+                Previous
+            </Button>
+            <span className="self-center text-sm">Page {currentPage} of {Math.ceil(sortedEmployees.length / itemsPerPage)}</span>
+            <Button
+                variant="outline"
+                onClick={() => setCurrentPage(prev => prev + 1)}
+                disabled={indexOfLastEmployee >= sortedEmployees.length}
+            >
+                Next
+            </Button>
+</div>
         </>
     )
 }
