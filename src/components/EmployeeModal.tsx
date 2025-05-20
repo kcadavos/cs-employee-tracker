@@ -56,6 +56,16 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
         });
         console.log("EMPLOYEE"+JSON.stringify(employeeToChange));
     };
+    const handleEmployeeToChangeJobTitle = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setEmployeeToChange({
+            ...employeeToChange,
+            [e.target.name]: e.target.value,
+        });
+        console.log("EMPLOYEE", JSON.stringify({
+            ...employeeToChange,
+            [e.target.name]: e.target.value,
+        }));
+    };
 
     const handleEmployeeToChangeHireDate = (date: string) => {
         setEmployeeToChange({
@@ -167,11 +177,22 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
                             <div className="mb-2 block">
                                 <Label htmlFor="jobTitle">Job title</Label>
                             </div>
-                            <Input
+                            {/* <Input
                                 id="jobTitle"  disabled={type === "Add"  || type==="Edit"}
                                 value={employeeToChange.jobTitle}
                                 onChange={handleEmployeeToChange}
-                            />
+                            /> */}
+                            <select 
+                            className="ml-3 text-sm border rounded p-1"
+                            // value={sortBy === "job-title" ? sortByJob : ""}
+                            name="jobTitle"  // 👈 must match the state key you're updating
+                            value={employeeToChange.jobTitle}
+                            onChange={handleEmployeeToChangeJobTitle}
+                        >
+                            <option value="Customer Support">Customer Support</option>
+                            <option value="IT Support Specialist">IT Support Specialist</option>
+                            <option value="Software Engineer">Software Engineer</option>
+                        </select>
                         </div>
                     </div>
                     <div>
