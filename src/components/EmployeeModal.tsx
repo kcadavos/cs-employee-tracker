@@ -177,15 +177,11 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
                             <div className="mb-2 block">
                                 <Label htmlFor="jobTitle">Job title</Label>
                             </div>
-                            {/* <Input
-                                id="jobTitle"  disabled={type === "Add"  || type==="Edit"}
-                                value={employeeToChange.jobTitle}
-                                onChange={handleEmployeeToChange}
-                            /> */}
+                       
                             <select 
                             className="ml-3 text-sm border rounded p-1"
-                            // value={sortBy === "job-title" ? sortByJob : ""}
-                            name="jobTitle"  // 👈 must match the state key you're updating
+                        
+                            name="jobTitle" 
                             value={employeeToChange.jobTitle}
                             onChange={handleEmployeeToChangeJobTitle}
                         >

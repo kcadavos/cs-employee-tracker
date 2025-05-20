@@ -6,11 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAppContext } from '@/lib/context/context'
 import { Employee } from '@/lib/interfaces/interfaces';
 import { getEmployeeById } from '@/lib/services/employee-service';
+import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 const page = () => {
-    const { employeeId } = useAppContext();
-
+    // const { employeeId } = useAppContext();
+    const { id } = useParams();
+    const employeeId = Number(id);
     const [employee, setEmployee] = useState<Employee | null>(null);
     const [token, setToken] = useState('');
 

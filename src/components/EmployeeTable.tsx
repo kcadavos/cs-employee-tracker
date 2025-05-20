@@ -14,7 +14,7 @@ import { useAppContext } from '@/lib/context/context';
 const EmployeeTable = () => {
     const { push } = useRouter();
 
-    const { setEmployeeId } = useAppContext();
+    const { employeeId,setEmployeeId } = useAppContext();
 
     // useStates
     const [employees, setEmployees] = useState<Employee[]>([]);
@@ -49,14 +49,15 @@ const EmployeeTable = () => {
 
     // Updating sort functions
     const changeSortBy = (value: string) => {
-        if (value == "name" && sortBy == "name") {
-            setSortBy(`${value}-reverse`);
-        } else if (value == "hire-date" && sortBy == "hire-date") {
-            setSortBy(`${value}-reverse`);
-        } else {
-            setSortBy(value);
-        }
+        // if (value == "name-reverse" && sortBy == "name") {
+        //     setSortBy(`${value}-reverse`);
+        // } else if (value == "hire-date" && sortBy == "hire-date") {
+        //     setSortBy(`${value}-reverse`);
+        // } else {
+        //     setSortBy(value);
+        // }
 
+        setSortBy(value);
         if (sortByJob) {
             setSortByJob("");
         }
@@ -80,9 +81,9 @@ const EmployeeTable = () => {
     };
 
     const handleViewEmployee = async (id: number) => {
-        await setEmployeeId(id);
+         await setEmployeeId(id);   
 
-        push('/employee-page');
+        push('/employee-page/'+id);
     };
 
     // Getting the user token from storage
@@ -104,12 +105,13 @@ const EmployeeTable = () => {
         if (token !== '') {
             handleGetEmployees();
         }
+        
     }, [token])
 
     // Sorting the employees
     useEffect(() => {
         const sortingEmployees = employees;
-
+     
         const handleSorting = () => {
             switch (sortBy) {
                 case "name":
@@ -139,7 +141,7 @@ const EmployeeTable = () => {
         };
 
         handleSorting();
-
+       
     }, [employees, sortBy, sortByJob]);
 
     return (
