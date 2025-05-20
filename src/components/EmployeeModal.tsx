@@ -24,14 +24,15 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
         name: "",
         jobTitle: "",
         hireDate: "",
+        details:"",
+        status:""
     });
 
     const [token, setToken] = useState('');
 
     const disableBtn =
-        employeeToChange.name.trim() != "" ||
-        employeeToChange.jobTitle.trim() != "" &&
-        employeeToChange.hireDate != "";
+        employeeToChange.name.trim() ==="" ||
+        employeeToChange.hireDate === "";
 
     // Modal Functions
     const onOpenModal = () => {
@@ -44,7 +45,7 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
 
     const onCloseModal = () => {
         setOpenModal(false);
-        setEmployeeToChange({ id: 0, name: "", jobTitle: "", hireDate: "" });
+        setEmployeeToChange({ id: 0, name: "", jobTitle: "", hireDate: "" , details:"",status:""});
     };
 
     // Change employee functions
@@ -53,6 +54,7 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
             ...employeeToChange,
             [e.target.id]: e.target.value,
         });
+        console.log("EMPLOYEE"+JSON.stringify(employeeToChange));
     };
 
     const handleEmployeeToChangeHireDate = (date: string) => {
@@ -60,6 +62,7 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
             ...employeeToChange,
             hireDate: date,
         });
+        console.log("EMPLOYEE"+JSON.stringify(employeeToChange));
     };
 
     // Date functions
@@ -75,6 +78,7 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");
+        console.log(`${year}-${month}-${day}`);
 
         return `${year}-${month}-${day}`;
     };
@@ -103,6 +107,8 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
                 name: "",
                 jobTitle: "",
                 hireDate: "",
+                details:"",
+                status:""
             });
         } catch (error) {
             console.log("error", error);
@@ -162,7 +168,7 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
                                 <Label htmlFor="jobTitle">Job title</Label>
                             </div>
                             <Input
-                                id="jobTitle"
+                                id="jobTitle"  disabled={type === "Add"  || type==="Edit"}
                                 value={employeeToChange.jobTitle}
                                 onChange={handleEmployeeToChange}
                             />

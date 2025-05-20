@@ -6,6 +6,8 @@ export interface Employee {
     hireDate: string;
     details: string | null;
     status: string | null;
+
+    
 }
 
 
