@@ -139,7 +139,7 @@ const LoginForm = () => {
                 )}
             </Button>
             <div className="flex w-75">
-                <p>Don't have an account?</p>
+                <p>Don&apos;t have an account?</p>
                 <Link href="/create-account" className="ml-2 text-blue-700 hover:underline">
                     Create one here :&#41;
                 </Link>
